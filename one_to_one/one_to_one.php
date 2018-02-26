@@ -13,7 +13,7 @@
                 <tr>
                 <?php
                  $sql = "SHOW COLUMNS FROM customers";
-                 $result = mysqli_query($conn, $sql);
+                 $result = $conn->query($sql);
                  if (mysqli_num_rows($result) > 0){
                    while($row = mysqli_fetch_array($result)){ 
                      echo '           
@@ -24,7 +24,7 @@
                 </tr>                
                 <?php
                  $sql = "SELECT * FROM customers";
-                 $result = mysqli_query($conn, $sql);
+                 $result = $conn->query($sql);
                  if (mysqli_num_rows($result) > 0){
                    while($row = mysqli_fetch_array($result)){ 
                      echo ' 
@@ -45,7 +45,7 @@
                 <tr>
                 <?php
                  $sql = "SHOW COLUMNS FROM addresses";
-                 $result = mysqli_query($conn, $sql);
+                 $result = $conn->query($sql);
                  if (mysqli_num_rows($result) > 0){
                    while($row = mysqli_fetch_array($result)){ 
                      echo '           
@@ -56,7 +56,7 @@
                 </tr>                
                 <?php
                  $sql = "SELECT * FROM addresses";
-                 $result = mysqli_query($conn, $sql);
+                 $result = $conn->query($sql);
                  if (mysqli_num_rows($result) > 0){
                    while($row = mysqli_fetch_array($result)){ 
                      echo ' 
