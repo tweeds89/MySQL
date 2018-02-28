@@ -8,7 +8,17 @@
     margin-right: 200px;
 }
 
+#table{   
+    margin: 0 auto;
+}
+
+#select{
+    padding-top: 50px;
+    clear: both;
+    text-align: center;
+}
+
 table, th, td{
-     border-collapse: collapse;
+    border-collapse: collapse;
     border: 1px solid black;
 }
