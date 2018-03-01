@@ -4,7 +4,7 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <title>Relacje jeden do jednego</title>
+        <title>Relacje jeden do wielu</title>
         <link rel="stylesheet" type="text/css" href="../style/style.css">        
     </head>   
     <body>
@@ -51,11 +51,11 @@
             </pre>          
         </div>   
         <div class="table-right">
-            <span><b>addresses</b></span>
+            <span><b>orders</b></span>
             <table>
                 <tr>
                 <?php
-                 $sql = "SHOW COLUMNS FROM addresses";
+                 $sql = "SHOW COLUMNS FROM orders";
                  $result = $conn->query($sql);
                  if (mysqli_num_rows($result) > 0){
                    while($row = mysqli_fetch_array($result)){ 
@@ -66,55 +66,56 @@
                 ?>  
                 </tr>                
                 <?php
-                 $sql = "SELECT * FROM addresses";
+                 $sql = "SELECT * FROM orders";
                  $result = $conn->query($sql);
                  if (mysqli_num_rows($result) > 0){
                    while($row = mysqli_fetch_array($result)){ 
                      echo ' 
                      <tr>
-                        <td>' .$row["customer_id"].'</td>  
-                        <td>' .$row["street"].'</td> 
-                        <td>' .$row["post_code"].'</td>  
-                        <td>' .$row["city"].'</td> 
+                        <td>' .$row["order_id"].'</td>  
+                        <td>' .$row["customer_id"].'</td> 
+                        <td>' .$row["order_details"].'</td>   
                      </tr>';
                     }
                  }
                 ?>                
             </table> 
             <pre>
-            CREATE TABLE addresses (
+            CREATE TABLE orders(
+            order_id int NOT NULL AUTO_INCREMENT,
             customer_id int NOT NULL,
-            street varchar(255) NOT NULL,
-            post_code varchar(255) NOT NULL,
-            city varchar(255) NOT NULL,
-            PRIMARY KEY(customer_id),
-            FOREIGN KEY(customer_id) REFERENCES 
-            customers(customer_id)
-            ON DELETE CASCADE)
+            order_details varchar(255) NOT NULL,
+            PRIMARY KEY (order_id),
+            FOREIGN KEY (customer_id)
+            REFERENCES customers (customer_id))
             </pre>
         </div>
         <div class="select">
             <p>
-            SELECT first_name, last_name, email, city FROM customers JOIN addresses ON customers.customer_id=addresses.customer_id
+           SELECT customers.customer_id, first_name, last_name, username, order_id, order_details FROM customers JOIN orders ON customers.customer_id=orders.customer_id ORDER BY customer_id
             </p>         
-            <table class="table">
+            <table class="table" >
                 <tr>
+                    <th>customer_id</th>
                     <th>first_name</th>
                     <th>last_name</th>
-                    <th>email</th>
-                    <th>city</th>
+                    <th>username</th>
+                    <th>order_id</th>
+                    <th>order_details</th>
                 </tr>              
                 <?php
-                $sql = "SELECT first_name, last_name, email, city FROM customers JOIN addresses ON customers.customer_id=addresses.customer_id";
+                $sql = "SELECT customers.customer_id, first_name, last_name, username, order_id, order_details FROM customers JOIN orders ON customers.customer_id=orders.customer_id ORDER BY customer_id";
                 $result = $conn->query($sql);
                  if (mysqli_num_rows($result) > 0){
                    while($row = mysqli_fetch_array($result)){ 
                      echo ' 
                      <tr>
+                        <td>' .$row["customer_id"].'</td>
                         <td>' .$row["first_name"].'</td>  
                         <td>' .$row["last_name"].'</td> 
-                        <td>' .$row["email"].'</td>  
-                        <td>' .$row["city"].'</td>
+                        <td>' .$row["username"].'</td>  
+                        <td>' .$row["order_id"].'</td>
+                        <td>' .$row["order_details"].'</td>
                      </tr>';
                    }
                  }
